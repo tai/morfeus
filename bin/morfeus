@@ -37,7 +37,7 @@ def main():
     if val is None:
         ret = getattr(mrf, key)
         if key == 'mode':
-            print(morfeus.Mode(ret).name)
+            print(ret.name)
         else:
             print(ret)
     else:

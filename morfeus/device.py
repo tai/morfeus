@@ -76,7 +76,8 @@ Example:
         dev.write(msg)
 
         ret = dev.read(16)
-        return int.from_bytes(ret[2:10], byteorder='big', signed=False)
+        val = int.from_bytes(ret[2:10], byteorder='big', signed=False)
+        return Mode(val)
 
     @mode.setter
     def mode(self, mode):

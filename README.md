@@ -26,7 +26,7 @@ variable directly:
 ```python
 import morfeus
 
-mrf = MoRFeus()
+mrf = morfeus.MoRFeus()
 mrf.mode = morfeus.Mode.MIXER
 mrf.frequency = 120000000
 mrf.bias = 0

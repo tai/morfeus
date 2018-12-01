@@ -4,10 +4,9 @@ Library to control moRFeus mixer/signal generator.
 
 Usage:
   import morfeus
-  from morfeus import MODE_MIXER, MODE_GENERATOR
 
-  mrf = MoRFeus()
-  mrf.mode = MODE_GENERATOR
+  mrf = morfeus.MoRFeus()
+  mrf.mode = morfeus.Mode.GENERATOR
   mrf.frequency = 120000000
 
 """

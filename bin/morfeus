@@ -3,12 +3,15 @@
 import sys
 import os
 import morfeus
+import argparse
 
-def usage():
+def format_usage():
     p = os.path.basename(sys.argv[0])
-    sys.stderr.write("""
+    return """
 {p} - Control moRFeus mixer/signal generator
-Usage: {p} <name> [<value>]
+Usage: {p} [option] <name> [<value>]
+Options:
+  -n <N>: Use N-th device, when multiple devices are connected
 Example:
   $ {p} mode
   MIXER
@@ -18,17 +21,26 @@ Example:
   $ {p} freq 120000000
   $ {p} bias 1
   $ {p} current 1
-""".strip().format(**locals()) + "\n")
+""".lstrip().format(**locals())
+
+def usage():
+    sys.stderr.write(format_usage())
     sys.exit(0)
 
 def main():
-    if len(sys.argv) < 2:
+    ap = argparse.ArgumentParser()
+    ap.format_usage = ap.format_help = format_usage
+    ap.add_argument('-n', default=0, type=int)
+    ap.add_argument('args', nargs='*')
+    opt = ap.parse_args()
+
+    if not opt.args:
         usage()
 
-    key = sys.argv[1]
-    val = sys.argv[2] if len(sys.argv) >= 3 else None
+    key = opt.args[0]
+    val = opt.args[1] if len(opt.args) >= 2 else None
 
-    mrf = morfeus.MoRFeus()
+    mrf = morfeus.MoRFeus(index=opt.n)
 
     if not hasattr(mrf, key):
         sys.stderr.write("ERROR: Unknown key: %s\n" % key)

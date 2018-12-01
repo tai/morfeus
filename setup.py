@@ -9,5 +9,5 @@ setup(name='morfeus',
       license='MIT',
       packages=['morfeus'],
       scripts = ['bin/morfeus'],
-      install_requires=['hidapi'],
+      install_requires=['hidapi', 'argparse'],
       zip_safe=False)

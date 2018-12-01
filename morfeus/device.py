@@ -32,9 +32,9 @@ Example:
   mrf = MoRFeus()
   mrf = MoRFeus(morfeus.VID, morfeus.PID)
 """
-    def __init__(self, vid=VID, pid=PID):
+    def __init__(self, vid=VID, pid=PID, index=0):
         try:
-            found = hid.enumerate(VID, PID)[0]
+            found = hid.enumerate(VID, PID)[index]
             self.dev = hid.device()
             self.dev.open_path(found['path'])
         except IndexError as e:

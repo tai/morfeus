@@ -44,7 +44,7 @@ def main():
         if key == 'mode':
             val = morfeus.Mode[val.upper()]
         else:
-            val = int(val)
+            val = int(eval(val))
         setattr(mrf, key, val)
 
 if __name__ == '__main__':

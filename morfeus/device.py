@@ -21,6 +21,9 @@ PID = 0xEAC9
 CMD_GET = 0x72
 CMD_SET = 0x77
 
+# REPORT ID must be prepended to every hid_write to make it cross-platform.
+REPORT_ID = 0x00
+
 class Mode(enum.Enum):
     MIXER = 0
     GENERATOR = 1
@@ -48,7 +51,7 @@ Example:
   print(mrf.freq)
 """
         dev = self.dev
-        msg = pack(">BB14x", CMD_GET, 0x81)
+        msg = pack(">BBB14x", REPORT_ID, CMD_GET, 0x81)
         dev.write(msg)
 
         ret = dev.read(16)
@@ -57,7 +60,7 @@ Example:
     @freq.setter
     def freq(self, freq):
         dev = self.dev
-        msg = pack(">BBQ6x", CMD_SET, 0x81, freq)
+        msg = pack(">BBBQ6x", REPORT_ID, CMD_SET, 0x81, freq)
         dev.write(msg)
         dev.read(16)
 
@@ -71,7 +74,7 @@ Example:
   print(mrf.mode)
 """
         dev = self.dev
-        msg = pack(">BB14x", CMD_GET, 0x82)
+        msg = pack(">BBB14x", REPORT_ID, CMD_GET, 0x82)
         dev.write(msg)
 
         ret = dev.read(16)
@@ -81,7 +84,7 @@ Example:
     @mode.setter
     def mode(self, mode):
         dev = self.dev
-        msg = pack(">BBQ6x", CMD_SET, 0x82, mode.value)
+        msg = pack(">BBBQ6x", REPORT_ID, CMD_SET, 0x82, mode.value)
         dev.write(msg)
         dev.read(16)
 
@@ -93,7 +96,7 @@ Example:
   print(mrf.current)
 """
         dev = self.dev
-        msg = pack(">BB14x", CMD_GET, 0x83)
+        msg = pack(">BBB14x", REPORT_ID, CMD_GET, 0x83)
         dev.write(msg)
 
         ret = dev.read(16)
@@ -102,7 +105,7 @@ Example:
     @current.setter
     def current(self, level=0):
         dev = self.dev
-        msg = pack(">BBQ6x", CMD_SET, 0x83, level)
+        msg = pack(">BBBQ6x", REPORT_ID, CMD_SET, 0x83, level)
         dev.write(msg)
         dev.read(16)
 
@@ -114,7 +117,7 @@ Example:
   print(mrf.bias)
 """
         dev = self.dev
-        msg = pack(">BB14x", CMD_GET, 0x84)
+        msg = pack(">BBB14x", REPORT_ID, CMD_GET, 0x84)
         dev.write(msg)
 
         ret = dev.read(16)
@@ -123,11 +126,15 @@ Example:
     @bias.setter
     def bias(self, status=0):
         dev = self.dev
-        msg = pack(">BBQ6x", CMD_SET, 0x84, status)
+        msg = pack(">BBBQ6x", REPORT_ID, CMD_SET, 0x84, status)
         dev.write(msg)
         dev.read(16)
 
 if __name__ == '__main__' and '__file__' in globals():
     from IPython import embed
     mrf = MoRFeus()
+    mrf.freq = 123000000
+    print(mrf.freq)
+    mrf.freq += 1000000
+    print(mrf.freq)
     embed()

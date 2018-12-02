@@ -52,7 +52,13 @@ $ morfeus current 0
 $ pip install morfeus
 ```
 
-# Notes
-This library depends on hidapi library.
-There seems to be multiple libraries that provides "import hid",
-but this is tested with cython-hidapi library.
+# Supported Platforms
+It has been tested on all Linux, OSX, and Windows platforms,
+with one caveat that it's not clear where and how to get morfeus(1)
+command installed on Windows automatically.
+
+# Requirements
+This library depends on following runtime and libraries:
+
+* Python3 (as it uses recent Python3 features)
+* hidapi (cython-hidapi and underlying platform-dependent hidapi library)

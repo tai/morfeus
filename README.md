@@ -28,7 +28,7 @@ import morfeus
 
 mrf = morfeus.MoRFeus()
 mrf.mode = morfeus.Mode.MIXER
-mrf.frequency = 120000000
+mrf.freq = 120000000
 mrf.bias = 0
 mrf.current = 1
 ```
@@ -42,7 +42,7 @@ to the device over CLI. Usage is also easy as the API:
 $ morfeus mode
 MIXER
 $ morfeus mode GENERATOR
-$ morfeus frequency 120000000
+$ morfeus freq 120000000
 $ morfeus bias 0
 $ morfeus current 0
 ```

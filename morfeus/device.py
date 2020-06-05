@@ -8,7 +8,7 @@ Usage:
 
   mrf = morfeus.MoRFeus()
   mrf.mode = morfeus.Mode.GENERATOR
-  mrf.frequency = 120000000
+  mrf.freq = 120000000
 
 """
 
